@@ -5,8 +5,12 @@ class Counter extends Component {
     super(props)
 
     this.state = {
-      count: 3,
+      count: 0,
     }
+
+    this.increment = this.increment.bind(this)
+    this.decrement = this.decrement.bind(this)
+    this.reset = this.reset.bind(this)
   }
 
   increment() {
@@ -28,9 +32,9 @@ class Counter extends Component {
       <div className="Counter">
         <p className="count">{count}</p>
         <section className="controls">
-          <button>Increment</button>
-          <button>Decrement</button>
-          <button>Reset</button>
+          <button onClick={this.increment}>Increment</button>
+          <button onClick={this.decrement}>Decrement</button>
+          <button onClick={this.reset}>Reset</button>
         </section>
       </div>
     )
