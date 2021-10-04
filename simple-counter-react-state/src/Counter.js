@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 class Counter extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      count: 3
+      count: 3,
     }
   }
 
@@ -22,7 +22,7 @@ class Counter extends Component {
   }
 
   render() {
-    const {count} = this.state
+    const { count } = this.state
 
     return (
       <div className="Counter">
@@ -33,8 +33,8 @@ class Counter extends Component {
           <button>Reset</button>
         </section>
       </div>
-    );
+    )
   }
 }
 
-export default Counter;
+export default Counter

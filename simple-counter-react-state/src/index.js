@@ -1,9 +1,9 @@
-import React from 'react';
-import { render } from 'react-dom';
+import React from 'react'
+import { render } from 'react-dom'
 
-import Counter from './Counter';
+import Counter from './Counter'
 
-import './styles.scss';
+import './styles.scss'
 
 const Application = () => {
   return (
@@ -12,7 +12,7 @@ const Application = () => {
         <Counter />
       </section>
     </main>
-  );
-};
+  )
+}
 
-render(<Application />, document.getElementById('root'));
+render(<Application />, document.getElementById('root'))
