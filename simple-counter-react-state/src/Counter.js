@@ -15,8 +15,8 @@ class Counter extends Component {
 
   increment() {
     this.setState((state) => {
-      if (state.count >= 5) return
-      return { count: state.count + 1 }
+      if (state.count >= this.props.max) return
+      return { count: state.count + this.props.step }
     })
   }
 
