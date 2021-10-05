@@ -10,7 +10,12 @@ function Counter({ max, step }) {
   const [count, setCount] = useState(0)
 
   function increment() {
-    setCount(count + 1)
+    setCount((c) => {
+      if (c >= max) {
+        return c
+      }
+      return c + step
+    })
   }
 
   function decrement() {
