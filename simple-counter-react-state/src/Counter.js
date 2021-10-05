@@ -1,9 +1,5 @@
 import React, { Component } from 'react'
 
-const increment = (state, props) => {
-  if (state.count >= props.max) return
-  return { count: state.count + props.step }
-}
 class Counter extends Component {
   constructor(props) {
     super(props)
@@ -18,7 +14,17 @@ class Counter extends Component {
   }
 
   increment() {
-    this.setState(increment)
+    this.setState(
+      (state, props) => {
+        if (state.count >= props.max) return
+        return { count: state.count + props.step }
+      },
+      () => {
+        console.log('After!', this.state.count)
+      },
+    )
+
+    console.log('Before!', this.state.count)
   }
 
   decrement() {
