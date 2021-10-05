@@ -1,12 +1,17 @@
 import React, { Component } from 'react'
 
+const getStateFromLocalStorage = () => {
+  const storage = localStorage.getItem('counterState')
+  if (storage) return
+  JSON.parse(storage)
+  return { count: 0 }
+}
+
 class Counter extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      count: 0,
-    }
+    this.state = getStateFromLocalStorage()
 
     this.increment = this.increment.bind(this)
     this.decrement = this.decrement.bind(this)
