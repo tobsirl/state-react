@@ -1,10 +1,4 @@
-import React, { useState } from 'react'
-
-const getStateFromLocalStorage = () => {
-  const storage = localStorage.getItem('counterState')
-  if (storage) return JSON.parse(storage)
-  return { count: 0 }
-}
+import React, { useState, useEffect } from 'react'
 
 function Counter({ max, step }) {
   const [count, setCount] = useState(0)
@@ -25,6 +19,10 @@ function Counter({ max, step }) {
   function reset() {
     setCount(0)
   }
+
+  useEffect(() => {
+    document.title = `Counter: ${count}`
+  }, [count])
 
   return (
     <div className="Counter">
