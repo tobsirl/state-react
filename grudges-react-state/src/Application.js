@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
 
-function App() {
+import id from 'uuid/v4';
+
+import Grudges from './Grudges';
+import NewGrudge from './NewGrudge';
+
+import initialState from './initialState';
+
+const Application = () => {
+  const [grudges, setGrudges] = useState(initialState);
+
+  const addGrudge = grudge => {
+    grudge.id = id();
+    grudge.forgiven = false;
+    setGrudges([grudge, ...grudges]);
+  };
+
+  const toggleForgiveness = id => {
+    setGrudges(
+      grudges.map(grudge => {
+        if (grudge.id !== id) return grudge;
+        return { ...grudge, forgiven: !grudge.forgiven };
+      })
+    );
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="Application">
+      <NewGrudge onSubmit={addGrudge} />
+      <Grudges grudges={grudges} onForgive={toggleForgiveness} />
     </div>
   );
-}
+};
 
-export default App;
+export default Application;
