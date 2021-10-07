@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 
 import id from 'uuid/v4';
 
@@ -7,8 +7,12 @@ import NewGrudge from './NewGrudge';
 
 import initialState from './initialState';
 
+const reducer = (state, action) => {
+  return state
+}
+
 const Application = () => {
-  const [grudges, setGrudges] = useState(initialState);
+  const [grudges, setGrudges] = useReducer(reducer, initialState);
 
   const addGrudge = grudge => {
     grudge.id = id();
