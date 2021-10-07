@@ -1,10 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-import Application from './Application';
+import Application from './Application'
 
-import './styles.css';
+import './styles.css'
 
-const rootElement = document.getElementById('root');
+const rootElement = document.getElementById('root')
 
-ReactDOM.render(<Application />, rootElement);
+ReactDOM.render(<Application />, rootElement)

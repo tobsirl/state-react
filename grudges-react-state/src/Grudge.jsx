@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
 const Grudge = ({ grudge, onForgive }) => {
-  const forgive = () => onForgive(grudge.id);
+  const forgive = () => onForgive(grudge.id)
 
   return (
     <article className="Grudge">
@@ -14,7 +14,7 @@ const Grudge = ({ grudge, onForgive }) => {
         </label>
       </div>
     </article>
-  );
-};
+  )
+}
 
-export default Grudge;
+export default Grudge
