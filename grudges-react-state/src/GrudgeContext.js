@@ -56,6 +56,6 @@ export const GrudgeProvider = ({ children }) => {
   const value = { grudges, addGrudge, toggleForgiveness }
 
   return (
-    <GrudgeContext.Provider value={value}>{Children}</GrudgeContext.Provider>
+    <GrudgeContext.Provider value={value}>{children}</GrudgeContext.Provider>
   )
 }
