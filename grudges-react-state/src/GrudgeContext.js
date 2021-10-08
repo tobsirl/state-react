@@ -1,5 +1,4 @@
 import React, { useReducer, createContext, useCallback } from 'react'
-import { Children } from 'react'
 
 import id from 'uuid/v4'
 import initialState from './initialState'
