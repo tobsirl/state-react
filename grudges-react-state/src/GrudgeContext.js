@@ -1,7 +1,10 @@
 import React, { useReducer, createContext, useCallback } from 'react'
+import { Children } from 'react'
 
 import id from 'uuid/v4'
 import initialState from './initialState'
+
+const GrudgeContext = createContext()
 
 const GRUDGE_ADD = 'GRUDGE_ADD'
 const GRUDGE_FORGIVE = 'GRUDGE_FORGIVE'
@@ -20,9 +23,9 @@ const reducer = (state, action) => {
   return state
 }
 
-export const GrudgeProvider = () => {
+export const GrudgeProvider = ({ children }) => {
   const [grudges, dispatch] = useReducer(reducer, initialState)
-  
+
   const addGrudge = useCallback(
     ({ person, reason }) => {
       dispatch({
@@ -48,5 +51,11 @@ export const GrudgeProvider = () => {
       })
     },
     [dispatch],
+  )
+
+  const value = { grudges, addGrudge, toggleForgiveness }
+
+  return (
+    <GrudgeContext.Provider value={value}>{Children}</GrudgeContext.Provider>
   )
 }
