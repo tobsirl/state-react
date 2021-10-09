@@ -1,14 +1,14 @@
-import React from 'react';
+import React from 'react'
 
 const SearchCharacters = () => {
   return (
     <input
-      onChange={event => console.log(event.target.value)}
+      onChange={(event) => console.log(event.target.value)}
       placeholder="Search Here"
       type="search"
       value={''}
     />
-  );
-};
+  )
+}
 
-export default SearchCharacters;
+export default SearchCharacters

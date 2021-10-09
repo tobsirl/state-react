@@ -87,6 +87,6 @@ const dummyData = [
     mass: 32,
     birthYear: null,
   },
-];
+]
 
-export default dummyData;
+export default dummyData

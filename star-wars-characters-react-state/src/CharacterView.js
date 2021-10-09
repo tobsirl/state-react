@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
 const CharacterView = ({ character = {} }) => {
-  console.log(character);
+  console.log(character)
   return (
     <section className="CharacterView">
       <h2>{character.name}</h2>
@@ -29,7 +29,7 @@ const CharacterView = ({ character = {} }) => {
         </li>
       </ul>
     </section>
-  );
-};
+  )
+}
 
-export default CharacterView;
+export default CharacterView

@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
+import React, { useState } from 'react'
+import ReactDOM from 'react-dom'
 
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom'
 
-import CharacterList from './CharacterList';
+import CharacterList from './CharacterList'
 
-import dummyData from './dummy-data';
+import dummyData from './dummy-data'
 
-import './styles.scss';
+import './styles.scss'
 
 const Application = () => {
-  const [characters, setCharacters] = useState(dummyData);
+  const [characters, setCharacters] = useState(dummyData)
 
   return (
     <div className="Application">
@@ -23,14 +23,14 @@ const Application = () => {
         </section>
       </main>
     </div>
-  );
-};
+  )
+}
 
-const rootElement = document.getElementById('root');
+const rootElement = document.getElementById('root')
 
 ReactDOM.render(
   <Router>
     <Application />
   </Router>,
   rootElement,
-);
+)
