@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
 
 import { BrowserRouter as Router } from 'react-router-dom'
 
 import CharacterList from './CharacterList'
 
-import endpoint from './endpoint'
+import { endpoint } from './endpoint'
 
 import './styles.scss'
 
@@ -71,20 +71,14 @@ const useFetch = (url) => {
     //     setLoading(false);
     //     setError(error);
     //   });
-  }, [])
+  }, [url])
 
   return [state.result, state.loading, state.error]
 }
 
 const Application = () => {
-  const [characters, setCharacters] = useState([])
-
-  useEffect(() => {
-    fetch(`${endpoint}/characters`)
-      .then((response) => response.json())
-      .then((data) => setCharacters(data.characters))
-      .catch((error) => console.error(error))
-  }, [])
+  const [response, loading, error] = useFetch(endpoint + '/characters')
+  const characters = (response && response.characters) || []
 
   return (
     <div className="Application">
@@ -93,7 +87,12 @@ const Application = () => {
       </header>
       <main>
         <section className="sidebar">
-          <CharacterList characters={characters} />
+          {loading ? (
+            <p>Loading…</p>
+          ) : (
+            <CharacterList characters={characters} />
+          )}
+          {error && <p className="error">{error.message}</p>}
         </section>
       </main>
     </div>
