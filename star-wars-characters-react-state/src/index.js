@@ -43,6 +43,39 @@ const fetchReducer = (state, action) => {
   return state
 }
 
+const useFetch = (url) => {
+  const [state, dispatch] = React.useReducer(fetchReducer, initialState)
+
+  React.useEffect(() => {
+    dispatch({ type: 'LOADING' })
+
+    const fetchUrl = async () => {
+      try {
+        const response = await fetch(url)
+        const data = await response.json()
+        dispatch({ type: 'RESPONSE_COMPLETE', payload: { response: data } })
+      } catch (error) {
+        dispatch({ type: 'ERROR', payload: { error } })
+      }
+    }
+
+    fetchUrl()
+
+    // fetch(endpoint + '/characters')
+    //   .then(response => response.json())
+    //   .then(response => {
+    //     setLoading(false);
+    //     setResponse(response);
+    //   })
+    //   .catch(error => {
+    //     setLoading(false);
+    //     setError(error);
+    //   });
+  }, [])
+
+  return [state.result, state.loading, state.error]
+}
+
 const Application = () => {
   const [characters, setCharacters] = useState([])
 
