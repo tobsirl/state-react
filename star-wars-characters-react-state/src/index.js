@@ -59,16 +59,19 @@ const fetchCharacters = (dispatch) => {
 const useThunkReducer = (reducer, initialState) => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  const enhancedDispatch = (action) => {
-    console.log(action)
-    if (isFunction(action)) {
-      action(dispatch)
-    } else {
-      dispatch(action)
-    }
+  const enhancedDispatch = React.useCallback(
+    (action) => {
+      console.log(action)
+      if (isFunction(action)) {
+        action(dispatch)
+      } else {
+        dispatch(action)
+      }
 
-    dispatch(action)
-  }
+      dispatch(action)
+    },
+    [dispatch],
+  )
 
   return [state, enhancedDispatch]
 }
