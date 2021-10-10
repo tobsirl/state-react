@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useReducer } from 'react'
 import ReactDOM from 'react-dom'
 
 import { BrowserRouter as Router } from 'react-router-dom'
@@ -74,6 +74,12 @@ const useFetch = (url) => {
   }, [url])
 
   return [state.result, state.loading, state.error]
+}
+
+const useThunkReducer = (reducer, initialState) => {
+  const [state, dispatch] = useReducer(reducer, initialState)
+  
+  return [state, dispatch]
 }
 
 const Application = () => {
