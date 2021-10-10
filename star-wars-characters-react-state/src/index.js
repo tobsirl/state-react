@@ -1,3 +1,4 @@
+import { isFunction } from 'lodash'
 import React, { useReducer } from 'react'
 import ReactDOM from 'react-dom'
 
@@ -78,7 +79,17 @@ const useFetch = (url) => {
 
 const useThunkReducer = (reducer, initialState) => {
   const [state, dispatch] = useReducer(reducer, initialState)
-  
+
+  const enhancedDispatch = (action) => {
+    if (isFunction(action)) {
+      action(dispatch)
+    } else {
+      dispatch(action)
+    }
+
+    dispatch(action)
+  }
+
   return [state, dispatch]
 }
 
