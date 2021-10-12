@@ -8,10 +8,19 @@ export const GrudgeContext = createContext()
 const GRUDGE_ADD = 'GRUDGE_ADD'
 const GRUDGE_FORGIVE = 'GRUDGE_FORGIVE'
 
-const reducer = (state, action) => {
+const reducer = (state = defaultState, action) => {
   if (action.type === GRUDGE_ADD) {
-    return [action.payload, ...state]
+    return {
+      present: [
+        {
+          id: id(),
+          ...action.payload,
+        },
+        ...state.present,
+      ],
+    }
   }
+
   if (action.type === GRUDGE_FORGIVE) {
     return state.map((grudge) => {
       if (grudge.id !== action.payload.id) return grudge
