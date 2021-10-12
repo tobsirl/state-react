@@ -22,6 +22,12 @@ const reducer = (state, action) => {
   return state
 }
 
+const defaultState = {
+  past: [],
+  present: initialState,
+  future: [],
+}
+
 export const GrudgeProvider = ({ children }) => {
   const [grudges, dispatch] = useReducer(reducer, initialState)
 
