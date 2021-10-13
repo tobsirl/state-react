@@ -50,8 +50,10 @@ const defaultState = {
 }
 
 export const GrudgeProvider = ({ children }) => {
-  const [state, dispatch] = useUndoReducer(reducer, initialState)
+  const [state, dispatch] = useReducer(reducer, initialState)
   const grudges = state.present
+  const isPast = !!state.past.length
+  const isFuture = !!state.future.length
 
   const addGrudge = useCallback(
     ({ person, reason }) => {
@@ -80,10 +82,19 @@ export const GrudgeProvider = ({ children }) => {
 
   const undo = useCallback(() => {
     dispatch({ type: 'UNDO' })
-  },[dispatch])
+  }, [dispatch])
 
   return (
-    <GrudgeContext.Provider value={{ grudges, addGrudge, toggleForgiveness }}>
+    <GrudgeContext.Provider
+      value={{
+        grudges,
+        addGrudge,
+        toggleForgiveness,
+        undo,
+        isPast,
+        isFuture,
+      }}
+    >
       {children}
     </GrudgeContext.Provider>
   )
