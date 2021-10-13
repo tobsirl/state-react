@@ -3,7 +3,8 @@ import Grudge from './Grudge'
 import { GrudgeContext } from './GrudgeContext'
 
 const Grudges = () => {
-  const { grudges } = useContext(GrudgeContext)
+  const { grudges = [] } = useContext(GrudgeContext)
+  console.log(grudges)
   return (
     <section className="Grudges">
       <h2>Grudges ({grudges.length})</h2>

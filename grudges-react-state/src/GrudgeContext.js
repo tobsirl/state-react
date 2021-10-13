@@ -19,7 +19,7 @@ const reducer = (state = defaultState, action) => {
     ]
 
     return {
-      past: [],
+      past: [state.present, ...state.past],
       present: newPresent,
       future: [],
     }
@@ -34,7 +34,7 @@ const reducer = (state = defaultState, action) => {
     })
 
     return {
-      past: [],
+      past: [state.present, ...state.past],
       present: newPresent,
       future: [],
     }
@@ -60,8 +60,6 @@ export const GrudgeProvider = ({ children }) => {
         payload: {
           person,
           reason,
-          forgiven: false,
-          id: id(),
         },
       })
     },
@@ -79,6 +77,8 @@ export const GrudgeProvider = ({ children }) => {
     },
     [dispatch],
   )
+
+  
 
   const value = { grudges, addGrudge, toggleForgiveness }
 
