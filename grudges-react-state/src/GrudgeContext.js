@@ -52,8 +52,8 @@ const defaultState = {
 export const GrudgeProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const grudges = state.present
-  const isPast = !!state.past.length
-  const isFuture = !!state.future.length
+  const isPast = !!state.past
+  const isFuture = !!state.future
 
   const addGrudge = useCallback(
     ({ person, reason }) => {
