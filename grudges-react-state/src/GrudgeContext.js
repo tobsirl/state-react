@@ -8,7 +8,7 @@ export const GrudgeContext = createContext()
 const GRUDGE_ADD = 'GRUDGE_ADD'
 const GRUDGE_FORGIVE = 'GRUDGE_FORGIVE'
 
-const reducer = (state = defaultState, action) => {
+const reducer = (state, action) => {
   if (action.type === GRUDGE_ADD) {
     const newPresent = [
       {
@@ -50,7 +50,7 @@ const defaultState = {
 }
 
 export const GrudgeProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState)
+  const [state, dispatch] = useUndoReducer(reducer, initialState)
   const grudges = state.present
 
   const addGrudge = useCallback(
@@ -78,11 +78,13 @@ export const GrudgeProvider = ({ children }) => {
     [dispatch],
   )
 
-  
-
-  const value = { grudges, addGrudge, toggleForgiveness }
+  const undo = useCallback(() => {
+    dispatch({ type: 'UNDO' })
+  },[dispatch])
 
   return (
-    <GrudgeContext.Provider value={value}>{children}</GrudgeContext.Provider>
+    <GrudgeContext.Provider value={{ grudges, addGrudge, toggleForgiveness }}>
+      {children}
+    </GrudgeContext.Provider>
   )
 }
