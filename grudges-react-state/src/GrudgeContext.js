@@ -10,22 +10,34 @@ const GRUDGE_FORGIVE = 'GRUDGE_FORGIVE'
 
 const reducer = (state = defaultState, action) => {
   if (action.type === GRUDGE_ADD) {
+    const newPresent = [
+      {
+        id: id(),
+        ...action.payload,
+      },
+      ...state.present,
+    ]
+
     return {
-      present: [
-        {
-          id: id(),
-          ...action.payload,
-        },
-        ...state.present,
-      ],
+      past: [],
+      present: newPresent,
+      future: [],
     }
   }
 
   if (action.type === GRUDGE_FORGIVE) {
-    return state.map((grudge) => {
-      if (grudge.id !== action.payload.id) return grudge
-      return { ...grudge, forgiven: !grudge.forgiven }
+    const newPresent = state.present.map((grudge) => {
+      if (grudge.id !== action.payload.id) {
+        return { ...grudge, forgiven: !grudge.forgiven }
+      }
+      return grudge
     })
+
+    return {
+      past: [],
+      present: newPresent,
+      future: [],
+    }
   }
 
   return state
@@ -38,7 +50,8 @@ const defaultState = {
 }
 
 export const GrudgeProvider = ({ children }) => {
-  const [grudges, dispatch] = useReducer(reducer, initialState)
+  const [state, dispatch] = useReducer(reducer, initialState)
+  const grudges = state.present
 
   const addGrudge = useCallback(
     ({ person, reason }) => {
