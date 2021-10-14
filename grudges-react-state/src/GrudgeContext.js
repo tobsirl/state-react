@@ -40,6 +40,15 @@ const reducer = (state, action) => {
     }
   }
 
+  if (action.type === 'UNDO') {
+    const [newPresent, ...newPast] = state.past
+    return {
+      past: newPast,
+      present: newPresent,
+      future: [state.present, ...state.future],
+    }
+  }
+
   return state
 }
 
