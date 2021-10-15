@@ -102,6 +102,10 @@ export const GrudgeProvider = ({ children }) => {
     dispatch({ type: 'UNDO' })
   }, [dispatch])
 
+  const redo = useCallback(() => {
+    dispatch({ type: 'REDO' })
+  }, [dispatch])
+
   return (
     <GrudgeContext.Provider
       value={{
@@ -109,6 +113,7 @@ export const GrudgeProvider = ({ children }) => {
         addGrudge,
         toggleForgiveness,
         undo,
+        redo,
         isPast,
         isFuture,
       }}
