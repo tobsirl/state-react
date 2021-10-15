@@ -8,6 +8,43 @@ export const GrudgeContext = createContext()
 const GRUDGE_ADD = 'GRUDGE_ADD'
 const GRUDGE_FORGIVE = 'GRUDGE_FORGIVE'
 
+const useUndoReducer = (reducer, initialState) => {
+  const undoState = {
+    past: [],
+    present: initialState,
+    future: [],
+  }
+
+  const undoReducer = (state, action) => {
+    const newPresent = reducer(state, action)
+
+    if (action.type === 'UNDO') {
+      const [newPresent, ...newPast] = state.past
+      return {
+        past: newPast,
+        present: newPresent,
+        future: [state.present, ...state.future],
+      }
+    }
+
+    if (action.type === 'REDO') {
+      const [newPresent, ...newFeature] = state.future
+      return {
+        past: [state.present, ...state.past],
+        present: newPresent,
+        future: newFeature,
+      }
+    }
+    return {
+      past: [state.present, ...state.past],
+      present: newPresent,
+      future: []
+    }
+  }
+
+  return useReducer(reducer, initialState)
+}
+
 const reducer = (state, action) => {
   if (action.type === GRUDGE_ADD) {
     const newPresent = [
@@ -37,24 +74,6 @@ const reducer = (state, action) => {
       past: [state.present, ...state.past],
       present: newPresent,
       future: [],
-    }
-  }
-
-  if (action.type === 'UNDO') {
-    const [newPresent, ...newPast] = state.past
-    return {
-      past: newPast,
-      present: newPresent,
-      future: [state.present, ...state.future],
-    }
-  }
-
-  if (action.type === 'REDO') {
-    const [newPresent, ...newFeature] = state.future
-    return {
-      past: [state.present, ...state.past],
-      present: newPresent,
-      future: newFeature,
     }
   }
 

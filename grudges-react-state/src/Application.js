@@ -1,8 +1,11 @@
-import React, { useContext } from 'react'
+import React, { useContext, useReducer } from 'react'
 
 import Grudges from './Grudges'
 import NewGrudge from './NewGrudge'
 import { GrudgeContext } from './GrudgeContext'
+import initialState from './initialState'
+
+
 
 const Application = () => {
   const { undo, redo, isPast, isFuture } = useContext(GrudgeContext)
