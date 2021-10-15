@@ -49,6 +49,15 @@ const reducer = (state, action) => {
     }
   }
 
+  if (action.type === 'REDO') {
+    const [newPresent, ...newFeature] = state.future
+    return {
+      past: [state.present, ...state.past],
+      present: newPresent,
+      future: newFeature,
+    }
+  }
+
   return state
 }
 
