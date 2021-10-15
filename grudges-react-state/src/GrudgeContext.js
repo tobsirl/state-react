@@ -16,7 +16,7 @@ const useUndoReducer = (reducer, initialState) => {
   }
 
   const undoReducer = (state, action) => {
-    const newPresent = reducer(state, action)
+    const newPresent = reducer(state.present, action)
 
     if (action.type === 'UNDO') {
       const [newPresent, ...newPast] = state.past
@@ -38,59 +38,41 @@ const useUndoReducer = (reducer, initialState) => {
     return {
       past: [state.present, ...state.past],
       present: newPresent,
-      future: []
-    }
-  }
-
-  return useReducer(reducer, initialState)
-}
-
-const reducer = (state, action) => {
-  if (action.type === GRUDGE_ADD) {
-    const newPresent = [
-      {
-        id: id(),
-        ...action.payload,
-      },
-      ...state.present,
-    ]
-
-    return {
-      past: [state.present, ...state.past],
-      present: newPresent,
       future: [],
     }
   }
 
+  return useReducer(undoReducer, undoState)
+}
+
+const reducer = (state = initialState, action) => {
+  if (action.type === GRUDGE_ADD) {
+    return [
+      {
+        id: id(),
+        ...action.payload,
+      },
+      ...state,
+    ]
+  }
+
   if (action.type === GRUDGE_FORGIVE) {
-    const newPresent = state.present.map((grudge) => {
+    return state.map((grudge) => {
       if (grudge.id !== action.payload.id) {
         return { ...grudge, forgiven: !grudge.forgiven }
       }
       return grudge
     })
-
-    return {
-      past: [state.present, ...state.past],
-      present: newPresent,
-      future: [],
-    }
   }
 
   return state
 }
 
-const defaultState = {
-  past: [],
-  present: initialState,
-  future: [],
-}
-
 export const GrudgeProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState)
+  const [state, dispatch] = useUndoReducer(reducer, initialState)
   const grudges = state.present
-  const isPast = !!state.past
-  const isFuture = !!state.future
+  const isPast = !!state.past.length
+  const isFuture = !!state.future.length
 
   const addGrudge = useCallback(
     ({ person, reason }) => {
