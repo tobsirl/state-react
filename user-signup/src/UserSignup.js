@@ -7,7 +7,7 @@ const initialState = {
   userName: '',
   email: '',
   password: '',
-  confirmPassword: '',
+  passwordConfirmation: '',
   investmentInterest: false
 }
 
@@ -78,7 +78,7 @@ const UserSignup = () => {
           name="investmentInterest"
           type="checkbox"
           checked={state.investmentInterest}
-          onChange={event => setState({investmentInterest: !event.target.value})}
+          onChange={event => setState({investmentInterest: !event.target.checked})}
         />
         Do you want to maybe help us out with an angel investment?
       </label>
