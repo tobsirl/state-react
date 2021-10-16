@@ -1,10 +1,15 @@
-import React, {useReducer} from 'react'
+import {useReducer} from 'react'
 
-export const reducerName = (state = , action) => {
-  switch (action.type) {
-    case 'ACTION_TYPE':
-      return 
-    default:
-      return state
-  }
+const reducer = (previousState = {} , updatedState = {}) => {
+  return {...previousState, ...updatedState}
 }
+
+const useSetState = (initialState = {}) => {
+  const [state, dispatch] = useReducer(reducer, initialState)
+
+  const setState = updatedState => dispatch(updatedState)
+
+  return  [state, setState]
+}
+
+export default useSetState
