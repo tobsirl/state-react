@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import './UserSignup.css';
+import useSetState from './useSetState';
+
+const initialState = {
+  userName: '',
+  email: '',
+  password: '',
+  confirmPassword: ''
+}
 
 const UserSignup = () => {
-  const [userName, setUserName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordConfirmation, setPasswordConfirmation] = useState('');
-  const [investmentInterest, setInvestmentInterest] = useState(false);
+  const [state, setState] = useSetState(initialState)
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -15,11 +19,7 @@ const UserSignup = () => {
   };
 
   const clear = () => {
-    setUserName('');
-    setEmail('');
-    setPassword('');
-    setPasswordConfirmation('');
-    setInvestmentInterest(false);
+   setState(initialState)
   };
 
   return (
